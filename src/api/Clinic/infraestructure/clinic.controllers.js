@@ -7,10 +7,11 @@ const bcrypt = require('bcrypt')
 const { 
   getIdOfExistingClinic,
   FuncCheckPassword,
+  FuncUpdateClinic, 
+  FuncDeleteClinic,
   FuncExistClinic,
   FuncSaveClinic, 
-  FuncUpdateClinic, 
-  FuncDeleteClinic } = require('../querys/functions.clinic');
+  FuncGetClinicById } = require('../querys/functions.clinic');
 
 const sendRes = require('../../../helpers/send.res');
 
@@ -21,6 +22,21 @@ const getAllClinic = async(req, res) => {
     const result = await toDoQuery( ClinicQuerys.getAll )
 
     return sendRes(res, 200, true, 'mess_1', result)
+    
+  } catch (error) { return sendRes(res, 500, false, 'mess_0', error.message) }
+
+}
+
+const getClinicById = async(req, res) => {
+
+  try {
+
+    const { codigo } = req.params
+
+    const result = await FuncGetClinicById(
+      ClinicQuerys.getInfoToSign, codigo)
+
+    return sendRes(res, 200, true, 'mess_1', ...result.recordset)
     
   } catch (error) { return sendRes(res, 500, false, 'mess_0', error.message) }
 
@@ -69,12 +85,12 @@ const saveClinic = async( req, res ) => {
     }
 
     const idMunicipio = await ProvinciaFuntions.getIdOfExistingMunicipio( suMunicipio )
-    const hashPassword = await bcrypt.hash(password, 10)
+    // const hashPassword = await bcrypt.hash(password, 10)
 
     const result = await FuncSaveClinic(
       ClinicQuerys.addNewClinic, 
       codigo, nombre, direccion, 
-      tipo, tipoLocal, idMunicipio.recordset[0].codigo, hashPassword)
+      tipo, tipoLocal, idMunicipio.recordset[0].codigo, password)
 
     return sendRes(res, 200, true, 'clinic_mess_1', result)
     
@@ -117,9 +133,10 @@ const deleteClinic = async( req, res ) => {
 }
 
 module.exports = {
+  getClinicById,
   getAllClinic,
-  saveClinic,
   updateClinic,
   deleteClinic,
+  saveClinic,
   signIn
 }

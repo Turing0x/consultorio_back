@@ -3,4 +3,5 @@ module.exports = {
   DATABASE: 'database',
   PROVINCIA: 'provincia',
   CLINIC: 'clinic',
+  WORKER: 'worker',
 }

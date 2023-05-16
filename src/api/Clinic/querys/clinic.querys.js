@@ -3,6 +3,12 @@ const ClinicQuerys = {
   // SELECT Querys
   getAll: 'SELECT * FROM Consultorio;',
   getById: 'SELECT * FROM Consultorio WHERE codigo = @codigo;',
+
+  getInfoToSign:
+    `SELECT Consultorio.nombre, Consultorio.direccion, Municipio.nombre AS nombreM
+      FROM Consultorio
+        JOIN Municipio ON 
+          Consultorio.suMunicipio = Municipio.codigo`,
   
   checkPassword: `
     SELECT CASE WHEN password = @password 

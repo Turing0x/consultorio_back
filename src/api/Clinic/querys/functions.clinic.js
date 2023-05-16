@@ -12,6 +12,17 @@ const getIdOfExistingClinic = async( query = '', nombre ) => {
 
 }
 
+const FuncGetClinicById = async( query = '', codigo ) => {
+
+  const pool = await DbConnect()
+  const result = await pool.request()
+    .input('codigo', sql.VarChar, codigo)
+    .query( query )
+
+  return result
+
+}
+
 const FuncExistClinic = async( query = '', nombre ) => {
 
   const pool = await DbConnect()
@@ -83,8 +94,9 @@ const FuncDeleteClinic = async( query = '', CI ) => {
 module.exports = {
   getIdOfExistingClinic,
   FuncCheckPassword,
+  FuncUpdateClinic,
+  FuncDeleteClinic,
   FuncExistClinic,
   FuncSaveClinic,
-  FuncUpdateClinic,
-  FuncDeleteClinic
+  FuncGetClinicById
 }

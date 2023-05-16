@@ -6,6 +6,7 @@ const router = Router()
 router
 
   .get('/', ClinicControllers.getAllClinic)
+  .get('/:codigo', ClinicControllers.getClinicById)
 
   .post('/', ClinicControllers.saveClinic)
   .post('/signIn', ClinicControllers.signIn)
