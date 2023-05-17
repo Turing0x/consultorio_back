@@ -22,7 +22,7 @@ const getAllProvincia = async(req, res) => {
 
     const result = await toDoQuery( ProvinciaQuerys.getAll )
 
-    return sendRes(res, 200, true, 'mess_1', result)
+    return sendRes(res, 200, true, 'mess_1', result.recordset)
     
   } catch (error) { return sendRes(res, 500, false, 'mess_0', error.message) }
 

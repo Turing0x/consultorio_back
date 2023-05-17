@@ -6,11 +6,12 @@ const router = Router()
 router
 
   .get('/', WorkerControllers.getAllWorker)
+  .get('/:clinicId', WorkerControllers.getAllWorkerOfAClinic)
 
   .post('/', WorkerControllers.saveWorker)
 
-  .put('/:CI', WorkerControllers.updateWorker)
+  .put('/:wokerId', WorkerControllers.updateWorker)
 
-  .delete('/:CI', WorkerControllers.deleteWorker)
+  .delete('/:wokerId', WorkerControllers.deleteWorker)
 
 module.exports.WorkerRouter = router

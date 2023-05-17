@@ -46,34 +46,34 @@ const FuncCheckPassword = async( query = '', nombre, password ) => {
 
 }
 
-const FuncSaveClinic = async( query = '', codigo, nombre, direccion, tipo, tipoLocal, suMunicipio, password ) => {
+const FuncSaveClinic = async( query = '', codigo, nombre, password, direccion, tipo, tipoLocal, suMunicipio ) => {
 
   const pool = await DbConnect()
   const result = await pool.request()
     .input('codigo', sql.VarChar, codigo)
     .input('nombre', sql.VarChar, nombre)
+    .input('password', sql.VarChar, password)
     .input('direccion', sql.VarChar, direccion)
     .input('tipo', sql.Int, tipo)
     .input('tipoLocal', sql.VarChar, tipoLocal)
     .input('suMunicipio', sql.VarChar, suMunicipio)
-    .input('password', sql.VarChar, password)
     .query( query )
 
   return result
 
 }
 
-const FuncUpdateClinic = async( query = '', codigo, nombre, direccion, tipo, tipoLocal, suMunicipio, password ) => {
+const FuncUpdateClinic = async( query = '', codigo, nombre, password, direccion, tipo, tipoLocal, suMunicipio ) => {
 
   const pool = await DbConnect()
   const result = await pool.request()
     .input('codigo', sql.VarChar, codigo)
     .input('nombre', sql.VarChar, nombre)
-    .input('direccion', sql.VarChar, direccion)
-    .input('tipo', sql.VarChar, tipo)
-    .input('tipoLocal', sql.Int, tipoLocal)
-    .input('suMunicipio', sql.Int, suMunicipio)
     .input('password', sql.VarChar, password)
+    .input('direccion', sql.VarChar, direccion)
+    .input('tipo', sql.Int, tipo)
+    .input('tipoLocal', sql.Int, tipoLocal)
+    .input('suMunicipio', sql.VarChar, suMunicipio)
     .query( query )
 
   return result

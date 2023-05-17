@@ -11,8 +11,8 @@ router
   .post('/', ClinicControllers.saveClinic)
   .post('/signIn', ClinicControllers.signIn)
 
-  .put('/:CI', ClinicControllers.updateClinic)
+  .put('/:codigo', ClinicControllers.updateClinic)
 
-  .delete('/:CI', ClinicControllers.deleteClinic)
+  .delete('/:codigo', ClinicControllers.deleteClinic)
 
 module.exports.ClinicRouter = router

@@ -20,6 +20,20 @@ const getAllWorker = async(req, res) => {
 
 }
 
+const getAllWorkerOfAClinic = async(req, res) => {
+
+  try {
+
+    const { clinicId } = req.params
+
+    const result = await toDoQuery( `SELECT * FROM PersonalSalud WHERE suConsultorio = '${clinicId}';` )
+
+    return sendRes(res, 200, true, 'mess_1', result.recordset)
+    
+  } catch (error) { return sendRes(res, 500, false, 'mess_0', error.message) }
+
+}
+
 const saveWorker = async( req, res ) => {
 
   try {
@@ -47,12 +61,12 @@ const updateWorker = async( req, res ) => {
 
   try {
     
-    const { CI } = req.params
+    const { wokerId } = req.params
     const { nombre, fechaNac, edad, sexo, ocupacion, suEnfermedad } = req.body
 
     const result = await FuncUpdateWorker( 
       WorkerQuerys.updateWorker,
-      CI, nombre, fechaNac,
+      wokerId, nombre, fechaNac,
       edad, sexo, ocupacion, suEnfermedad )
 
     return sendRes(res, 200, true, 'mess_1', result)
@@ -65,10 +79,10 @@ const deleteWorker = async( req, res ) => {
 
   try {
     
-    const { CI } = req.params
+    const { wokerId } = req.params
 
     const result = await FuncDeleteWorker( 
-      WorkerQuerys.deleteWorkerByCI, CI )
+      WorkerQuerys.deleteWorkerByCI, wokerId )
 
     return sendRes(res, 200, true, 'mess_1', result)
     
@@ -77,8 +91,9 @@ const deleteWorker = async( req, res ) => {
 }
 
 module.exports = {
+  getAllWorkerOfAClinic,
   getAllWorker,
-  saveWorker,
   updateWorker,
-  deleteWorker
+  deleteWorker,
+  saveWorker
 }

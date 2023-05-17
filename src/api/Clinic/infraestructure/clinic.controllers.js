@@ -89,7 +89,7 @@ const saveClinic = async( req, res ) => {
 
     const result = await FuncSaveClinic(
       ClinicQuerys.addNewClinic, 
-      codigo, nombre, direccion, 
+      codigo, nombre, password, direccion, 
       tipo, tipoLocal, idMunicipio.recordset[0].codigo, password)
 
     return sendRes(res, 200, true, 'clinic_mess_1', result)
@@ -103,13 +103,19 @@ const updateClinic = async( req, res ) => {
   try {
     
     const { codigo } = req.params
-    const { nombre, direccion, tipo, tipoLocal } = req.body
+    const { nombre, password, direccion, tipo, tipoLocal, suMunicipio } = req.body
 
-    const idMunicipio = await ProvinciaFuntions.getIdOfExistingMunicipio( direccion )
+    const findedClinic = await toDoQuery( `SELECT * FROM Consultorio WHERE codigo = '${codigo}';` ) 
 
-    const result = await FuncUpdateClinic( 
+    const result = await FuncUpdateClinic(
       ClinicQuerys.updateClinic,
-      codigo, nombre, idMunicipio, tipo, tipoLocal )
+      codigo,
+      nombre ?? findedClinic.recordset[0].nombre,
+      password ?? findedClinic.recordset[0].password,
+      direccion ?? findedClinic.recordset[0].direccion, 
+      tipo ?? findedClinic.recordset[0].tipo, 
+      tipoLocal ?? findedClinic.recordset[0].tipoLocal,
+      suMunicipio ?? findedClinic.recordset[0].suMunicipio) 
 
     return sendRes(res, 200, true, 'clinic_mess_2', result)
     
@@ -121,10 +127,9 @@ const deleteClinic = async( req, res ) => {
 
   try {
     
-    const { CI } = req.params
+    const { codigo } = req.params
 
-    const result = await FuncDeleteClinic( 
-      ClinicQuerys.deleteClinicBycodigo, CI )
+    const result = await toDoQuery( `DELETE FROM Consultorio WHERE codigo = '${codigo}';` ) 
 
     return sendRes(res, 200, true, 'mess_1', result)
     

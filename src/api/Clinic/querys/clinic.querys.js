@@ -28,13 +28,9 @@ const ClinicQuerys = {
 
   // UPDATE Querys
   updateClinic: `UPDATE Consultorio SET
-    codigo = @codigo,
-    nombre = @nombre,
-    password = @password,
-    direccion = @direccion,
-    tipo = @tipo,
-    tipoLocal = @tipoLocal,
-    suMunicipio = @suMunicipio`,
+    nombre = @nombre, password = @password, direccion = @direccion, tipo = @tipo,
+      tipoLocal = @tipoLocal, suMunicipio = @suMunicipio 
+        WHERE codigo = @codigo`,
 
   // DELETE Querys
   deleteClinicBycodigo: 'DELETE FROM Consultorio WHERE codigo = @codigo;'
