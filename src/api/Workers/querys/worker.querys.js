@@ -1,7 +1,7 @@
 const WorkerQuerys = {
 
   // SELECT Querys
-  getAll: 'SELECT * FROM PersonalSalud',
+  getAll: 'SELECT * FROM PersonalSalud;',
   getById: 'SELECT * FROM PersonalSalud WHERE regMed = @regMed',
 
   // INSERT Querys
