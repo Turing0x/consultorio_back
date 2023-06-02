@@ -7,6 +7,7 @@ router
 
   .get('/', WorkerControllers.getAllWorker)
   .get('/:clinicId', WorkerControllers.getAllWorkerOfAClinic)
+  .get('/byoccupation/:occupation', WorkerControllers.getByOccupationWorker)
 
   .post('/', WorkerControllers.saveWorker)
 
